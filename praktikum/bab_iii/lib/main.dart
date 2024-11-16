@@ -76,51 +76,55 @@ class HomeScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "Today's Special Deal!",
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                          const SizedBox(height: 8),
-                          const Text(
-                            "By One Get One",
-                            style: TextStyle(
-                                fontSize: 26,
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 4, 0, 255)),
-                          ),
-                          const SizedBox(height: 8),
-                          const Text(
-                            "Limited Time Offer. Buy Now!",
-                            style: TextStyle(color: Colors.white70),
-                          ),
-                          const SizedBox(height: 12),
-                          ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              foregroundColor:
-                                  const Color.fromARGB(255, 248, 248, 247),
-                              backgroundColor:
-                                  const Color.fromARGB(255, 255, 3, 3),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 16.0), 
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Today's Special Deal!",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
-                            child: const Text("Buy Now"),
-                          ),
-                        ],
+                            const SizedBox(height: 8),
+                            const Text(
+                              "By One Get One",
+                              style: TextStyle(
+                                  fontSize: 26,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 4, 0, 255)),
+                            ),
+                            const SizedBox(height: 8),
+                            const Text(
+                              "Limited Time Offer. Buy Now!",
+                              style: TextStyle(color: Colors.white70),
+                            ),
+                            const SizedBox(height: 12),
+                            ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                foregroundColor:
+                                    const Color.fromARGB(255, 248, 248, 247),
+                                backgroundColor:
+                                    const Color.fromARGB(255, 255, 3, 3),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                              child: const Text("Buy Now"),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(width: 10),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Image.asset(
-                        "image/kadet1947.jpeg",
+                        "assets/kadet1947.jpeg",
                         width: 250,
                         height: 250,
                         fit: BoxFit.fill,
@@ -133,73 +137,112 @@ class HomeScreen extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            // sedang tayang
+            // Sedang tayang
             const SectionHeader(title: "Sedang Tayang"),
 
             // Film List
             SizedBox(
-              height: 180,
+              height: 180, 
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
+                itemCount: 3,
                 itemBuilder: (context, index) {
-                  // Hentikan setelah satu item
-                  if (index > 0) return null;
+                  final items = [
+                    {
+                      "image": "assets/agaklaen.jpeg",
+                      "title": "Agak Laen",
+                      "genre": "Komedi",
+                      "rating": "7.0"
+                    },
+                    {
+                      "image": "assets/kangmak.jpeg",
+                      "title": "Kang Mak",
+                      "genre": "Komedi",
+                      "rating": "9.6"
+                    },
+                    {
+                      "image": "assets/kuasagelap.jpeg",
+                      "title": "Kuasa Gelap",
+                      "genre": "Horror",
+                      "rating": "6.0"
+                    },
+                  ];
+
+                  final item = items[index];
 
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Column(
-                      children: [
-                        Container(
-                          width: 90,
-                          height: 90,
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(
-                                8), // Tambahkan border radius jika ingin sedikit melengkung
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                blurRadius: 4,
-                                offset: const Offset(0, 3),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 12.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize
+                            .min,
+                        children: [
+                          Container(
+                            width: 100,
+                            height: 100,
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(
+                                  16),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.3),
+                                  blurRadius: 4,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: Image.asset(
+                                item["image"]!,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            item["title"]!,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Column(
+                            crossAxisAlignment:
+                                CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                item["genre"]!,
+                                style: const TextStyle(color: Colors.grey),
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(Icons.star,
+                                      color: Colors.amber, size: 16),
+                                  Text(item["rating"]!),
+                                ],
                               ),
                             ],
                           ),
-                          child: Image.asset(
-                            "image/user.jpeg",
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        const Text("Freelance 1",
-                            style:
-                                 TextStyle(fontWeight: FontWeight.bold)),
-                        const Text("Web Design",
-                            style: TextStyle(color: Colors.grey)),
-                        const Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(Icons.star, color: Colors.amber, size: 16),
-                            Text("5.0"),
-                          ],
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   );
                 },
               ),
             ),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
 
-            // Top Services
+            // Akan Tayang
             const SectionHeader(title: "Akan Tayang"),
 
-            // Services List
+            // Akan tayang List
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                // Hentikan setelah satu item
                 if (index > 0) return null;
 
                 return Padding(
@@ -223,7 +266,7 @@ class HomeScreen extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.asset(
-                            "image/freelance1.jpeg",
+                            "assets/pengabdisetan2.jpeg",
                             width: 100,
                             height: 100,
                             fit: BoxFit.cover,
@@ -237,7 +280,7 @@ class HomeScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Santet Segoro Pitu",
+                                  "Pengabdi Setan 2",
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
@@ -247,7 +290,7 @@ class HomeScreen extends StatelessWidget {
                                   style: TextStyle(color: Colors.grey),
                                 ),
                                 Text(
-                                  "Sutradara Tommy Dewo",
+                                  "Joko Anwar",
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -283,7 +326,6 @@ class HomeScreen extends StatelessWidget {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                // Hentikan setelah satu item
                 if (index > 0) return null;
 
                 return Padding(
@@ -307,7 +349,7 @@ class HomeScreen extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.asset(
-                            "image/freelance1.jpeg",
+                            "assets/sekawanlimo.jpeg",
                             width: 100,
                             height: 100,
                             fit: BoxFit.cover,
@@ -321,17 +363,17 @@ class HomeScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Santet Segoro Pitu",
+                                  "Sekawan Limo",
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  "Genre : Horror",
+                                  "Genre : Komedi",
                                   style: TextStyle(color: Colors.grey),
                                 ),
                                 Text(
-                                  "Sutradara Tommy Dewo",
+                                  "Sutradara Bayu Skak",
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -339,7 +381,7 @@ class HomeScreen extends StatelessWidget {
                                   children: [
                                     Icon(Icons.star,
                                         color: Colors.amber, size: 16),
-                                    Text("9.0"),
+                                    Text("8.0"),
                                   ],
                                 ),
                               ],
@@ -367,7 +409,6 @@ class HomeScreen extends StatelessWidget {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                // Hentikan setelah satu item
                 if (index > 0) return null;
 
                 return Padding(
@@ -391,31 +432,31 @@ class HomeScreen extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.asset(
-                            "image/freelance1.jpeg",
+                            "assets/Cruel Peter.jpeg",
                             width: 100,
                             height: 100,
                             fit: BoxFit.cover,
                           ),
                         ),
                         const SizedBox(width: 10),
-                        const  Expanded(
+                        const Expanded(
                           child: Padding(
                             padding: EdgeInsets.symmetric(vertical: 10),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Santet Segoro Pitu",
+                                  "Cruel Peter",
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  "Genre : Horror",
+                                  "Genre : Horror Thriller",
                                   style: TextStyle(color: Colors.grey),
                                 ),
                                 Text(
-                                  "Sutradara Tommy Dewo",
+                                  "Sutradara Ascanio Malgarini",
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -423,7 +464,7 @@ class HomeScreen extends StatelessWidget {
                                   children: [
                                     Icon(Icons.star,
                                         color: Colors.amber, size: 16),
-                                    Text("9.0"),
+                                    Text("7.8"),
                                   ],
                                 ),
                               ],
@@ -451,7 +492,6 @@ class HomeScreen extends StatelessWidget {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                // Hentikan setelah satu item
                 if (index > 0) return null;
 
                 return Padding(
@@ -475,7 +515,7 @@ class HomeScreen extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.asset(
-                            "image/freelance1.jpeg",
+                            "assets/siksa neraka.jpeg",
                             width: 100,
                             height: 100,
                             fit: BoxFit.cover,
@@ -489,17 +529,17 @@ class HomeScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Santet Segoro Pitu",
+                                  "Siksa Neraka",
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  "Genre : Horror",
+                                  "Genre : Horror Thriller",
                                   style: TextStyle(color: Colors.grey),
                                 ),
                                 Text(
-                                  "Sutradara Tommy Dewo",
+                                  "Sutradara Anggy Umbara",
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -507,7 +547,7 @@ class HomeScreen extends StatelessWidget {
                                   children: [
                                     Icon(Icons.star,
                                         color: Colors.amber, size: 16),
-                                    Text("9.0"),
+                                    Text("8.5"),
                                   ],
                                 ),
                               ],
