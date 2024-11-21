@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-// import 'dart:ui';
+import 'package:praktikum/screns/cart_screens.dart';
+import 'package:praktikum/screns/splash_screens.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,12 +12,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'M.tiX',
       theme: ThemeData(
         primarySwatch: Colors.indigo,
         scaffoldBackgroundColor: Colors.grey[200],
       ),
-      home: const HomeScreen(),
+      home: const SplashScreen(),
     );
   }
 }
@@ -28,10 +30,24 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("M.tiX"),
+        title: Image.asset(
+          'assets/logo-mtix.png',
+          height: 30,
+        ),
         actions: [
           IconButton(icon: const Icon(Icons.notifications), onPressed: () {}),
-          IconButton(icon: const Icon(Icons.shopping_cart), onPressed: () {}),
+          IconButton(
+            icon: const Icon(Icons.shopping_cart),
+            onPressed: () {
+              // Navigasi ke halaman keranjang
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        const CartScreen()), // Ganti CartScreen dengan halaman yang sesuai
+              );
+            },
+          ),
         ],
       ),
       drawer: const Drawer(),
@@ -77,8 +93,7 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 16.0), 
+                        padding: const EdgeInsets.only(left: 16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -114,7 +129,7 @@ class HomeScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                               ),
-                              child: const Text("Buy Now"),
+                              child: const Text("Buy Ticket Now"),
                             ),
                           ],
                         ),
@@ -138,11 +153,11 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 20),
 
             // Sedang tayang
-            const SectionHeader(title: "Sedang Tayang"),
+            const SectionHeader(title: "Sedang Tayang",),
 
             // Film List
             SizedBox(
-              height: 180, 
+              height: 180,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: 3,
@@ -171,21 +186,20 @@ class HomeScreen extends StatelessWidget {
                   final item = items[index];
 
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal:
+                            16.0), // Menambah padding kiri-kanan agar tidak mepet
                     child: Padding(
-                      padding: const EdgeInsets.only(
-                          top: 12.0),
+                      padding: const EdgeInsets.only(top: 12.0),
                       child: Column(
-                        mainAxisSize: MainAxisSize
-                            .min,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           Container(
                             width: 100,
                             height: 100,
                             decoration: BoxDecoration(
                               color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(
-                                  16),
+                              borderRadius: BorderRadius.circular(16),
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.grey.withOpacity(0.3),
@@ -208,8 +222,7 @@ class HomeScreen extends StatelessWidget {
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Column(
-                            crossAxisAlignment:
-                                CrossAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
                                 item["genre"]!,
